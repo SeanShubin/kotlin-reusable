@@ -239,4 +239,46 @@ class DynamicUtilTest {
         assertEquals(expectedValue, actual)
         assertEquals(expected, after)
     }
+
+    @Test
+    fun arrayAppendAllowed() {
+        // Setting at index == array.size should succeed (append operation)
+        val initial = mapOf("a" to listOf("x", "y"))
+        val result = DynamicUtil.set(initial, listOf("a", 2), "z")
+        val expected = mapOf("a" to listOf("x", "y", "z"))
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun arrayPaddingNotAllowed() {
+        // Setting at index > array.size should throw (would require padding)
+        val initial = mapOf("a" to listOf("x", "y"))
+        try {
+            DynamicUtil.set(initial, listOf("a", 5), "z")
+            throw AssertionError("Expected RuntimeException for padding requirement")
+        } catch (e: RuntimeException) {
+            assertTrue(e.message?.contains("would require padding") ?: false)
+        }
+    }
+
+    @Test
+    fun nonExistentArrayAtIndexZeroAllowed() {
+        // Setting at index 0 when array doesn't exist should succeed
+        val initial: Any? = null
+        val result = DynamicUtil.set(initial, listOf("a", 0), "x")
+        val expected = mapOf("a" to listOf("x"))
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun nonExistentArrayAtHighIndexNotAllowed() {
+        // Setting at index > 0 when array doesn't exist should throw
+        val initial: Any? = null
+        try {
+            DynamicUtil.set(initial, listOf("a", 5), "x")
+            throw AssertionError("Expected RuntimeException for creating array with padding")
+        } catch (e: RuntimeException) {
+            assertTrue(e.message?.contains("would require padding") ?: false)
+        }
+    }
 }

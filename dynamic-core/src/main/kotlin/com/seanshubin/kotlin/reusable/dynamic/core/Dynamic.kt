@@ -24,7 +24,7 @@ data class Dynamic(val o: Any?) {
             if (o is List<*>) {
                 val oldSubTree = Dynamic(o.getOrNull(key))
                 val newSubTree = oldSubTree.set(path.drop(1), value)
-                val newValue = updateArray(o, key, null, newSubTree.o)
+                val newValue = updateArray(o, key, newSubTree.o)
                 Dynamic(newValue)
             } else {
                 Dynamic(emptyList<Any?>()).set(path, value)
@@ -40,29 +40,21 @@ data class Dynamic(val o: Any?) {
         }
     }
 
-    private fun updateArray(o:Any?, index:Int, defaultValue:Any?, value:Any?):List<Any?> {
+    private fun updateArray(o:Any?, index:Int, value:Any?):List<Any?> {
         return when {
-            o is List<*> && o.size < index -> padListAndAdd(o, index, defaultValue, value)
-            o is List<*> -> replaceAt(o, index, value)
-            else -> createListWithPadding(index, defaultValue, value)
+            o is List<*> && index == o.size -> o + value
+            o is List<*> && index > o.size -> throw RuntimeException("Cannot set array index $index when array size is ${o.size} (would require padding)")
+            o is List<*> && index < o.size -> replaceAt(o, index, value)
+            o == null && index == 0 -> listOf(value)
+            o == null && index > 0 -> throw RuntimeException("Cannot set array index $index when array does not exist (would require padding)")
+            else -> throw RuntimeException("Cannot update array: unexpected state")
         }
-    }
-
-    private fun padListAndAdd(list: List<*>, targetIndex: Int, defaultValue: Any?, value: Any?): List<Any?> {
-        val paddingCount = targetIndex - list.size
-        val padding = (0 until paddingCount).map { defaultValue }
-        return list + padding + value
     }
 
     private fun replaceAt(list: List<*>, index: Int, value: Any?): List<Any?> {
         val before = list.take(index)
         val after = list.drop(index + 1)
         return before + listOf(value) + after
-    }
-
-    private fun createListWithPadding(targetIndex: Int, defaultValue: Any?, value: Any?): List<Any?> {
-        val padding = (0 until targetIndex).map { defaultValue }
-        return padding + value
     }
 
     fun exists(path: List<Any?>): Boolean {
