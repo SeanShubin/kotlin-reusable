@@ -50,10 +50,19 @@
   ],
   "modules": {
     "dynamic-core": [],
-    "dynamic-json": [ "dynamic-core" ],
+    "dynamic-json": [
+      "dynamic-core",
+      "di-delegate",
+      "jackson",
+      "jackson-time"
+    ],
     "di-contract": [],
-    "di-delegate": ["di-contract"],
-    "di-test": ["di-contract"]
+    "di-delegate": [
+      "di-contract"
+    ],
+    "di-test": [
+      "di-contract"
+    ]
   },
   "javaVersion": "25"
 }

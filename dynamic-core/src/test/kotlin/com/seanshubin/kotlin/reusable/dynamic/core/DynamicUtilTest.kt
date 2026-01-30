@@ -18,7 +18,7 @@ class DynamicUtilTest {
     }
 
     @Test
-    fun exists(){
+    fun exists() {
         val value = mapOf("a" to 1)
         assertFalse(DynamicUtil.exists(value, listOf("b")))
     }
@@ -196,7 +196,7 @@ class DynamicUtilTest {
 
     @Test
     fun setArray() {
-        var value:Any? = null
+        var value: Any? = null
         value = DynamicUtil.set(value, listOf("a", 0, "b", 0), "c")
         value = DynamicUtil.set(value, listOf("a", 0, "b", 1), "d")
         value = DynamicUtil.set(value, listOf("a", 0, "b", 2), "e")
