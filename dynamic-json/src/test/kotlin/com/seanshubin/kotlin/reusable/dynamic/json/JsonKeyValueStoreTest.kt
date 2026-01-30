@@ -1,28 +1,39 @@
 package com.seanshubin.kotlin.reusable.dynamic.json
 
+import com.seanshubin.kotlin.reusable.di.contract.FilesContract
 import com.seanshubin.kotlin.reusable.di.delegate.FilesDelegate
+import com.seanshubin.kotlin.reusable.dynamic.core.KeyValueStoreWithDocumentationDelegate
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class JsonKeyValueStoreTest {
-    private val files = FilesDelegate.defaultInstance()
-
+    val files: FilesContract = FilesDelegate.defaultInstance()
     @Test
-    fun intValue() {
-        withTemporaryFile { path ->
+    fun intValue(){
+        withTemporaryFiles { path, documentationPath ->
             val keyValueStore = JsonFileKeyValueStore(files, path)
+            val documentationKeyValueStore = JsonFileKeyValueStore(files, documentationPath)
+            val keyValueStoreWithDocumentation =
+                KeyValueStoreWithDocumentationDelegate(keyValueStore, documentationKeyValueStore)
             val key = listOf("a", "b", "c")
+            val documentation = listOf("this is a number")
+            val expectedDocumentation = listOf(
+                "path: a.b.c",
+                "default value: 456",
+                "default value type: Integer"
+            ) + documentation
             val value = 456
-            keyValueStore.store(key, value)
-            val actualValue = keyValueStore.load(key)
+            val actualValue = keyValueStoreWithDocumentation.load(key, value, documentation)
+            val actualDocumentation = documentationKeyValueStore.load(key)
+            assertEquals(expectedDocumentation, actualDocumentation)
             assertEquals(value, actualValue)
         }
     }
 
     @Test
-    fun arrays() {
+    fun arrays(){
         withTemporaryFile { path ->
             val keyValueStore = JsonFileKeyValueStore(files, path)
             keyValueStore.store(listOf("the-array", 0, "name"), "a")
@@ -41,7 +52,14 @@ class JsonKeyValueStoreTest {
         }
     }
 
-    private fun withTemporaryFile(f: (Path) -> Unit) {
+    private fun withTemporaryFiles(f:(Path, Path)->Unit){
+        withTemporaryFile { path1 ->
+            withTemporaryFile { path2 ->
+                f(path1, path2)
+            }
+        }
+    }
+    private fun withTemporaryFile(f:(Path)->Unit){
         val path = Files.createTempFile("test", ".json")
         path.toFile().deleteOnExit()
         f(path)
