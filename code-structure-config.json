@@ -18,7 +18,7 @@
   "nodeLimitForGraph" : 100,
   "binaryFileRegexPatterns" : {
     "include" : [ ".*/target/.*\\.class" ],
-    "exclude" : [ ]
+    "exclude" : [ ".*/testdata/.*", ".*/generated/.*" ]
   },
   "documentation" : {
     "countAsErrors" : {
