@@ -56,6 +56,12 @@
       "jackson",
       "jackson-time"
     ],
+    "dynamic-json5": [
+      "dynamic-core",
+      "di-delegate",
+      "jackson",
+      "jackson-time"
+    ],
     "di-contract": [],
     "di-delegate": [
       "di-contract"

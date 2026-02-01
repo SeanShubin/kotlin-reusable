@@ -1,0 +1,23 @@
+{
+  "countAsErrors" : {
+    "inDirectCycle" : true,
+    "inGroupCycle" : true,
+    "ancestorDependsOnDescendant" : true,
+    "descendantDependsOnAncestor" : true
+  },
+  "maximumAllowedErrorCount" : 0,
+  "inputDir" : ".",
+  "outputDir" : "generated/code-structure",
+  "useObservationsCache" : false,
+  "includeJvmDynamicInvocations" : false,
+  "sourcePrefix" : "https://github.com/developer github name/name-parts/blob/master/",
+  "sourceFileRegexPatterns" : {
+    "include" : [ ".*/src/main/(kotlin|java)/.*\\.(kt|java)" ],
+    "exclude" : [ ]
+  },
+  "nodeLimitForGraph" : 100,
+  "binaryFileRegexPatterns" : {
+    "include" : [ ".*/target/.*\\.class" ],
+    "exclude" : [ ".*/testdata/.*", ".*/generated/.*" ]
+  }
+}
