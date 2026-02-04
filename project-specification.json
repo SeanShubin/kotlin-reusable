@@ -68,7 +68,8 @@
     ],
     "di-test": [
       "di-contract"
-    ]
+    ],
+    "filter": []
   },
   "javaVersion": "25"
 }
