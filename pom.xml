@@ -58,6 +58,7 @@
         <module>di-delegate</module>
         <module>di-test</module>
         <module>filter</module>
+        <module>html</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
