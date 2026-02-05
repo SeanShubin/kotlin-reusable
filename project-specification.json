@@ -72,6 +72,16 @@
     "filter": [],
     "html": []
   },
-  "javaVersion": "25"
+  "javaVersion": "25",
+  "exports": [
+    "dynamic-core",
+    "dynamic-json",
+    "dynamic-json5",
+    "di-contract",
+    "di-delegate",
+    "di-test",
+    "filter",
+    "html"
+  ]
 }
 
