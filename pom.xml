@@ -58,6 +58,7 @@
         <module>di-delegate</module>
         <module>di-test</module>
         <module>filter</module>
+        <module>format</module>
         <module>html</module>
     </modules>
     <properties>

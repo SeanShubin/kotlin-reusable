@@ -70,6 +70,7 @@
       "di-contract"
     ],
     "filter": [],
+    "format": [],
     "html": []
   },
   "javaVersion": "25",
@@ -81,6 +82,7 @@
     "di-delegate",
     "di-test",
     "filter",
+    "format",
     "html"
   ]
 }
