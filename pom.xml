@@ -116,7 +116,7 @@
             <plugin>
                 <groupId>com.seanshubin.code.structure</groupId>
                 <artifactId>code-structure-maven</artifactId>
-                <version>1.1.0</version>
+                <version>1.1.1</version>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
@@ -190,7 +190,7 @@
                                 <id>generate-dokka-javadoc</id>
                                 <phase>package</phase>
                                 <goals>
-                                    <goal>javadoc</goal>
+                                    <goal>javadocJar</goal>
                                 </goals>
                             </execution>
                         </executions>
