@@ -73,6 +73,13 @@
     "di-test": [
       "di-contract"
     ],
+    "exec": [
+      "di-contract",
+      "di-delegate"
+    ],
+    "parallel": [
+      "coroutines"
+    ],
     "filter": [],
     "format": [],
     "html": []
@@ -86,6 +93,8 @@
     "di-contract",
     "di-delegate",
     "di-test",
+    "exec",
+    "parallel",
     "filter",
     "format",
     "html"

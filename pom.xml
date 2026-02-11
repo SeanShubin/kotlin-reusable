@@ -58,6 +58,8 @@
         <module>di-contract</module>
         <module>di-delegate</module>
         <module>di-test</module>
+        <module>exec</module>
+        <module>parallel</module>
         <module>filter</module>
         <module>format</module>
         <module>html</module>
