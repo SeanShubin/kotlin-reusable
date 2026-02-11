@@ -62,6 +62,10 @@
       "jackson",
       "jackson-time"
     ],
+    "json-mappers": [
+      "jackson",
+      "jackson-time"
+    ],
     "di-contract": [],
     "di-delegate": [
       "di-contract"
@@ -78,6 +82,7 @@
     "dynamic-core",
     "dynamic-json",
     "dynamic-json5",
+    "json-mappers",
     "di-contract",
     "di-delegate",
     "di-test",

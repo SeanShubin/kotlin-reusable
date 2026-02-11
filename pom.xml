@@ -54,6 +54,7 @@
         <module>dynamic-core</module>
         <module>dynamic-json</module>
         <module>dynamic-json5</module>
+        <module>json-mappers</module>
         <module>di-contract</module>
         <module>di-delegate</module>
         <module>di-test</module>
