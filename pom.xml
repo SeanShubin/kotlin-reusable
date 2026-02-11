@@ -63,6 +63,7 @@
         <module>filter</module>
         <module>format</module>
         <module>html</module>
+        <module>zip</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

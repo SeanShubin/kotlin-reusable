@@ -82,7 +82,8 @@
     ],
     "filter": [],
     "format": [],
-    "html": []
+    "html": [],
+    "zip": []
   },
   "javaVersion": "25",
   "exports": [
@@ -97,7 +98,8 @@
     "parallel",
     "filter",
     "format",
-    "html"
+    "html",
+    "zip"
   ]
 }
 
