@@ -51,6 +51,7 @@
         </dependencies>
     </dependencyManagement>
     <modules>
+        <module>actors</module>
         <module>dynamic-core</module>
         <module>dynamic-json</module>
         <module>dynamic-json5</module>

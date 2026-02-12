@@ -49,6 +49,9 @@
     "test"
   ],
   "modules": {
+    "actors": [
+      "coroutines"
+    ],
     "dynamic-core": [],
     "dynamic-json": [
       "dynamic-core",
@@ -87,6 +90,7 @@
   },
   "javaVersion": "25",
   "exports": [
+    "actors",
     "dynamic-core",
     "dynamic-json",
     "dynamic-json5",
