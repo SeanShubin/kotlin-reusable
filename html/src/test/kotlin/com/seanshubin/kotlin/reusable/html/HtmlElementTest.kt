@@ -110,7 +110,7 @@ class HtmlElementTest {
 
     @Test
     fun companionTextFunction() {
-        val element = HtmlElement.text("h1", "Hello")
+        val element = HtmlElement.tagText("h1", "Hello")
         val expected = listOf(
             "<h1>",
             "  Hello",

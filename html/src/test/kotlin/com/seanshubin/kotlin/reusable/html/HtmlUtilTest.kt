@@ -22,7 +22,7 @@ class HtmlUtilTest {
             Person("Alice", 30),
             Person("Bob", 25)
         )
-        val elements = HtmlUtil.createTable(
+        val elements = HtmlUtil.createTableWithText(
             list = people,
             captions = listOf("Name", "Age"),
             elementToRow = { person -> listOf(person.name, person.age.toString()) },
@@ -70,7 +70,7 @@ class HtmlUtilTest {
     fun createTableWithoutCaption() {
         data class Item(val id: Int)
         val items = listOf(Item(1), Item(2))
-        val elements = HtmlUtil.createTable(
+        val elements = HtmlUtil.createTableWithText(
             list = items,
             captions = listOf("ID"),
             elementToRow = { item -> listOf(item.id.toString()) }

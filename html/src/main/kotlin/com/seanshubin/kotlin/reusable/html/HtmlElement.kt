@@ -39,8 +39,8 @@ interface HtmlElement {
     }
 
     companion object {
-        fun text(name: String, content: String): HtmlElement {
-            return Tag(name, Text(content))
+        fun tagText(tag: String, text: String): HtmlElement {
+            return Tag(tag, Text(text))
         }
     }
 }

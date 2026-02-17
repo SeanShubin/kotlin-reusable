@@ -69,7 +69,7 @@ val paragraph = Tag("p", Text("Hello, World!"))
 // </p>
 
 // Using convenience function
-val heading = HtmlElement.text("h1", "Welcome")
+val heading = HtmlElement.tagText("h1", "Welcome")
 // Output:
 // <h1>
 //   Welcome

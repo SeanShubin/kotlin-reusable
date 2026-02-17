@@ -7,6 +7,7 @@
 - When behavior overlaps, modify kotlin reusable to have the best of both, so that the target module can import it as a source dependency later
 - Refactor the target project to have code identical to kotlin reusable
 - Once the models are identical, the target project can be migrated to kotlin reusable
+- As I control all of these projects, backwards compatibility is not necessary
 
 ## Note on checked/unchecked splits
 usage frequency matters more than method count percentage when deciding on checked/unchecked splits:
