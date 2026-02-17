@@ -84,7 +84,8 @@
       "coroutines"
     ],
     "filter": [],
-    "format": [],
+    "duration-format": [],
+    "table-format": [],
     "html": [],
     "zip": []
   },
@@ -101,7 +102,8 @@
     "exec",
     "parallel",
     "filter",
-    "format",
+    "duration-format",
+    "table-format",
     "html",
     "zip"
   ]

@@ -62,7 +62,8 @@
         <module>exec</module>
         <module>parallel</module>
         <module>filter</module>
-        <module>format</module>
+        <module>duration-format</module>
+        <module>table-format</module>
         <module>html</module>
         <module>zip</module>
     </modules>

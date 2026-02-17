@@ -1,7 +1,7 @@
-package com.seanshubin.kotlin.reusable.format
+package com.seanshubin.kotlin.reusable.table.format
 
-import com.seanshubin.kotlin.reusable.format.TableFormatter.Justify.Left
-import com.seanshubin.kotlin.reusable.format.TableFormatter.Justify.Right
+import com.seanshubin.kotlin.reusable.table.format.TableFormatter.Justify.Left
+import com.seanshubin.kotlin.reusable.table.format.TableFormatter.Justify.Right
 import java.io.StringReader
 import kotlin.test.Test
 import kotlin.test.assertEquals

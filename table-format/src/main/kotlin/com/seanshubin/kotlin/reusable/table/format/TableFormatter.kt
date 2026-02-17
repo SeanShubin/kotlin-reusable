@@ -1,4 +1,4 @@
-package com.seanshubin.kotlin.reusable.format
+package com.seanshubin.kotlin.reusable.table.format
 
 import java.io.BufferedReader
 import java.io.Reader

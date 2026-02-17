@@ -1,4 +1,4 @@
-package com.seanshubin.kotlin.reusable.format
+package com.seanshubin.kotlin.reusable.duration.format
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

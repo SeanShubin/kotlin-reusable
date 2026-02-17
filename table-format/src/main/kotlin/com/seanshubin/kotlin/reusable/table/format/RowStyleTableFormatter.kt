@@ -1,10 +1,10 @@
-package com.seanshubin.kotlin.reusable.format
+package com.seanshubin.kotlin.reusable.table.format
 
-import com.seanshubin.kotlin.reusable.format.TableFormatter.Companion.escapeString
-import com.seanshubin.kotlin.reusable.format.TableFormatter.Companion.toBufferedReader
-import com.seanshubin.kotlin.reusable.format.TableFormatter.Companion.transpose
-import com.seanshubin.kotlin.reusable.format.TableFormatter.Justify.Left
-import com.seanshubin.kotlin.reusable.format.TableFormatter.Justify.Right
+import com.seanshubin.kotlin.reusable.table.format.TableFormatter.Companion.escapeString
+import com.seanshubin.kotlin.reusable.table.format.TableFormatter.Companion.toBufferedReader
+import com.seanshubin.kotlin.reusable.table.format.TableFormatter.Companion.transpose
+import com.seanshubin.kotlin.reusable.table.format.TableFormatter.Justify.Left
+import com.seanshubin.kotlin.reusable.table.format.TableFormatter.Justify.Right
 import java.io.Reader
 
 data class RowStyleTableFormatter(

@@ -1,4 +1,4 @@
-package com.seanshubin.kotlin.reusable.format
+package com.seanshubin.kotlin.reusable.duration.format
 
 class DurationFormat(private val scales: List<Scale>, val padded: Boolean) {
     fun parse(s: String): Long {
