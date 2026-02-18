@@ -7,7 +7,15 @@ import java.io.InputStreamReader
 import java.nio.file.Path
 
 class ExecImpl : Exec {
-    override fun exec(workingDirectory: Path, command: List<String>): Exec.Result {
+    override fun exec(workingDirectory: Path, command: List<String>): String {
+        val result = execForResult(workingDirectory, command)
+        if (result.exitCode != 0) {
+            throw ExecException(command, workingDirectory, result.exitCode, result.output)
+        }
+        return result.output
+    }
+
+    override fun execForResult(workingDirectory: Path, command: List<String>): Exec.Result {
         val processBuilder: ProcessBuilderContract = ProcessBuilderDelegate(command)
         processBuilder.directory(workingDirectory.toFile())
         processBuilder.redirectErrorStream(true)
