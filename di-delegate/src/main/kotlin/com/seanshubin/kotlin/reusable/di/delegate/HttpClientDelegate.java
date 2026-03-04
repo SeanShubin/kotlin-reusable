@@ -12,7 +12,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.WebSocket;
-import java.security.MessageDigest;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -24,6 +23,17 @@ public class HttpClientDelegate implements HttpClientContract {
     public HttpClientDelegate(HttpClient delegate) {
         this.delegate = delegate;
     }
+
+    private static HttpClientContract INSTANCE;
+
+    public static HttpClientContract defaultInstance() {
+        if (INSTANCE == null) {
+            HttpClient delegate = HttpClient.newBuilder().build();
+            INSTANCE = new HttpClientDelegate(delegate);
+        }
+        return INSTANCE;
+    }
+
     @Override
     public Optional<CookieHandler> cookieHandler() {
         return delegate.cookieHandler();
