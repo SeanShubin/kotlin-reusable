@@ -20,7 +20,7 @@ class JsonFileKeyValueStore(val files: FilesContract, val path: Path) : KeyValue
         val jsonObject = loadJsonObject()
         val newJsonObject = DynamicUtil.set(jsonObject, key, value)
         val newJsonText = JsonMappers.pretty.writeValueAsString(newJsonObject)
-        if(!files.exists(path)) files.createDirectories(path.parent)
+        ensureParentExists(path)
         files.writeString(path, newJsonText, jsonCharset)
     }
 
@@ -58,6 +58,11 @@ class JsonFileKeyValueStore(val files: FilesContract, val path: Path) : KeyValue
             is String, is Int -> Unit
             else -> throw IllegalArgumentException("All key parts must be String or Int, got $keyPart")
         }
+    }
+
+    private fun ensureParentExists(path:Path){
+        val parent = path.parent ?: return
+        files.createDirectories(parent)
     }
 
     companion object Companion {
