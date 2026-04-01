@@ -5,6 +5,7 @@ This module provides a complete framework for pattern-based classification with 
 ## Purpose
 
 When building applications that classify items using patterns (regex, predicates, etc.), you need:
+
 1. **A filtering framework** - Apply patterns and get classification results
 2. **Effectiveness tracking** - Know which patterns work and which don't
 3. **Gap analysis** - Find items that don't match any pattern
@@ -17,6 +18,7 @@ This module provides all of these capabilities in a reusable, thread-safe packag
 ### Filtering Framework
 
 **Filter** - Interface for matching text against patterns
+
 ```kotlin
 interface Filter {
     val type: String      // Classification type (e.g., "boundary", "core")
@@ -26,6 +28,7 @@ interface Filter {
 ```
 
 **RegexFilter** - Regular expression based filter
+
 ```kotlin
 class RegexFilter(
     override val type: String,
@@ -34,6 +37,7 @@ class RegexFilter(
 ```
 
 **FilterRegistry** - Manages filters and performs classification
+
 ```kotlin
 interface FilterRegistry {
     val category: String                    // e.g., "invocation", "class"
@@ -45,6 +49,7 @@ interface FilterRegistry {
 ```
 
 **FilterRegistryImpl** - Thread-safe implementation with optional stats integration
+
 ```kotlin
 class FilterRegistryImpl(
     override val category: String,
@@ -55,6 +60,7 @@ class FilterRegistryImpl(
 ### Statistics Tracking
 
 **Event Classes** - Record filter activity
+
 ```kotlin
 data class MatchedFilterEvent(
     val category: String,   // "invocation"
@@ -70,6 +76,7 @@ data class UnmatchedFilterEvent(
 ```
 
 **FilterStats** - Thread-safe statistics collection
+
 ```kotlin
 interface FilterStats {
     val matchedFilterEvents: List<MatchedFilterEvent>
@@ -80,6 +87,7 @@ interface FilterStats {
 ```
 
 **FilterStatsImpl** - Concurrent implementation
+
 - Uses `ConcurrentLinkedQueue` for events
 - Uses `ConcurrentHashMap` for patterns
 - All reads return defensive copies
@@ -144,6 +152,7 @@ println("Total unmatched: ${stats.unmatchedFilterEvents.size}")       // 2
 ### Analyzing Filter Effectiveness
 
 **Find unmatched items (gaps in coverage)**
+
 ```kotlin
 val unmatchedTexts = stats.unmatchedFilterEvents
     .map { it.text }
@@ -155,6 +164,7 @@ unmatchedTexts.forEach { println("  $it") }
 ```
 
 **Find unused patterns (pattern bloat)**
+
 ```kotlin
 data class TypePatternKey(val type: String, val pattern: String)
 
@@ -174,6 +184,7 @@ unusedPatterns.forEach { println("  ${it.type}: ${it.pattern}") }
 ```
 
 **Find multi-pattern matches (pattern ambiguity)**
+
 ```kotlin
 val eventsByText = stats.matchedFilterEvents.groupBy { it.text }
 
@@ -188,6 +199,7 @@ ambiguousMatches.forEach { (text, events) ->
 ```
 
 **Find classification conflicts (multi-type matches)**
+
 ```kotlin
 val typeConflicts = eventsByText
     .filter { (_, events) -> events.map { it.type }.distinct().size > 1 }
@@ -232,7 +244,9 @@ println("Class matches: ${stats.matchedFilterEvents.count { it.category == "clas
 ## Design Rationale
 
 ### Why Categories?
+
 Categories allow tracking multiple independent classification systems in one `FilterStats` instance:
+
 - `invocation` category: classify method calls
 - `class` category: classify classes
 - `file` category: classify files
@@ -240,7 +254,9 @@ Categories allow tracking multiple independent classification systems in one `Fi
 Each category has its own patterns and can be analyzed independently.
 
 ### Why Thread-Safe?
+
 Enables parallel processing of items without synchronization overhead in calling code:
+
 ```kotlin
 items.parallelStream().forEach { item ->
     // No synchronization needed - FilterRegistry handles it
@@ -249,13 +265,16 @@ items.parallelStream().forEach { item ->
 ```
 
 ### Why Optional Statistics?
+
 You can use the filtering framework without statistics overhead:
+
 ```kotlin
 // Just classification, no tracking
 val registry = FilterRegistryImpl("invocation")  // No stats parameter
 ```
 
 Or enable statistics for analysis:
+
 ```kotlin
 // Classification + tracking
 val registry = FilterRegistryImpl("invocation", stats)
@@ -264,6 +283,7 @@ val registry = FilterRegistryImpl("invocation", stats)
 ## Integration with Other Projects
 
 This module extracts common filtering patterns from:
+
 - `jvmspec` - Bytecode analysis and classification
 - `inversion-guard` - Dependency inversion detection
 - `code-structure` - Package dependency analysis
@@ -273,6 +293,7 @@ Each of these projects can now use this reusable module instead of maintaining d
 ### Migration Path
 
 Projects using custom filtering should:
+
 1. Add dependency: `<artifactId>kotlin-reusable-filter</artifactId>`
 2. Replace custom filtering code with `FilterRegistry`
 3. Change package imports to: `com.seanshubin.kotlin.reusable.filter`
@@ -281,6 +302,7 @@ Projects using custom filtering should:
 ## Future Enhancements
 
 Potential additions for future versions:
+
 - **Predicate-based filters**: Beyond regex to arbitrary predicates
 - **Composite filters**: AND/OR/NOT combinations
 - **Filter priorities**: Explicit ordering beyond add-order
@@ -292,6 +314,7 @@ Potential additions for future versions:
 ## Testing
 
 The module includes comprehensive tests (23 tests total):
+
 - `FilterStatsImplTest` - 10 tests for statistics collection
 - `RegexFilterTest` - 5 tests for regex matching
 - `FilterRegistryImplTest` - 8 tests for classification and stats integration

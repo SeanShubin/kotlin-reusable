@@ -18,6 +18,7 @@ class HtmlUtilTest {
     @Test
     fun createTable() {
         data class Person(val name: String, val age: Int)
+
         val people = listOf(
             Person("Alice", 30),
             Person("Bob", 25)
@@ -69,6 +70,7 @@ class HtmlUtilTest {
     @Test
     fun createTableWithoutCaption() {
         data class Item(val id: Int)
+
         val items = listOf(Item(1), Item(2))
         val elements = HtmlUtil.createTableWithText(
             list = items,

@@ -5,6 +5,7 @@ This module provides a type-safe, structured way to compose HTML in Kotlin witho
 ## Purpose
 
 When building applications that generate HTML, you need:
+
 1. **Type-safe structure** - Catch errors at compile time, not runtime
 2. **Composability** - Build complex HTML from simple parts
 3. **No string concatenation** - Avoid quote escaping and syntax errors
@@ -231,6 +232,7 @@ val html = lines.joinToString("\n")
 ```
 
 Output:
+
 ```html
 <div>
   <p>
@@ -280,6 +282,7 @@ fun loadTemplate(json: Map<String, Any>): HtmlElement {
 ### Why Structured Representations?
 
 String concatenation for HTML has several problems:
+
 - No syntax validation
 - Quote escaping is error-prone
 - IDE cannot refactor HTML elements
@@ -291,6 +294,7 @@ Structured representations solve all of these issues while remaining simple to u
 ### Why toLines()?
 
 Returning `List<String>` instead of a single string:
+
 - Enables proper indentation
 - Makes structure visible in tests
 - Easy to customize output format
@@ -298,11 +302,13 @@ Returning `List<String>` instead of a single string:
 
 ### Why Separate Tag and Text?
 
-This mirrors HTML's actual structure - elements contain either other elements or text. The separation makes the tree structure explicit and enables type-safe composition.
+This mirrors HTML's actual structure - elements contain either other elements or text. The separation makes the tree
+structure explicit and enables type-safe composition.
 
 ## Testing
 
 The module includes comprehensive tests (16 tests total):
+
 - `HtmlElementTest` - 10 tests for core functionality
 - `HtmlUtilTest` - 6 tests for utility functions
 

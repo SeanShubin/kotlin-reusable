@@ -60,7 +60,7 @@ class JsonFileKeyValueStore(val files: FilesContract, val path: Path) : KeyValue
         }
     }
 
-    private fun ensureParentExists(path:Path){
+    private fun ensureParentExists(path: Path) {
         val parent = path.parent ?: return
         files.createDirectories(parent)
     }

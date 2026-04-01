@@ -173,18 +173,20 @@ class TableFormatterTest {
     }
 
     @Test
-    fun parseMinimal(){
-        data class Data(val id:Int, val name:String, val value:Double)
+    fun parseMinimal() {
+        data class Data(val id: Int, val name: String, val value: Double)
+
         val row1 = Data(1, "Alice", 1.23)
         val row2 = Data(2, "Bob", 45.67)
         val row3 = Data(3, "Carol", 8.9)
         val expected = listOf(row1, row2, row3)
-        fun rowToData(row:Map<String, String>):Data {
+        fun rowToData(row: Map<String, String>): Data {
             val id = row.getValue("id").trim().toInt()
             val name = row.getValue("name").trim()
             val value = row.getValue("value").trim().toDouble()
             return Data(id, name, value)
         }
+
         val tableFormat = minimal
         val input =
             """|id name  value
@@ -193,7 +195,7 @@ class TableFormatterTest {
                | 3 Carol  8.9
                |""".trimMargin()
         val reader = StringReader(input)
-        val actual = tableFormat.parse(reader, ::rowToData).map{it}
+        val actual = tableFormat.parse(reader, ::rowToData).map { it }
         assertEquals(expected, actual)
     }
 

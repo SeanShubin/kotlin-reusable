@@ -11,12 +11,13 @@ interface TableFormatter {
     }
 
     fun format(originalRows: List<List<Any?>>): List<String>
-    fun <T> parse(reader: Reader, mapToElement:(Map<String, String>) -> T):Iterable<T>
+    fun <T> parse(reader: Reader, mapToElement: (Map<String, String>) -> T): Iterable<T>
 
     companion object {
         private fun String.truncate(max: Int): String =
             if (this.length > max) "<${this.length} characters, showing first $max> ${this.substring(0, max)}"
             else this
+
         private fun String.escape(): String = this.flatMap(::escapeCharToIterable).joinToString("")
         private fun escapeCharToIterable(target: Char): Iterable<Char> = escapeCharToString(target).asIterable()
         private fun escapeCharToString(target: Char): String =

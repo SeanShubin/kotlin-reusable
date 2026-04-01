@@ -26,11 +26,13 @@ class BankAccountActor(scope: kotlinx.coroutines.CoroutineScope) : Actor<BankMes
                 balance += msg.amount
                 msg.replyTo.send(OperationResult(true))
             }
+
             is Withdraw -> {
                 val success = balance >= msg.amount
                 if (success) balance -= msg.amount
                 msg.replyTo.send(OperationResult(success))
             }
+
             is GetBalance -> {
                 msg.replyTo.send(Balance(balance))
             }

@@ -59,7 +59,7 @@ data class RowStyleTableFormatter(
         val columnIndexNamePairs: List<Pair<Int, String>>
     ) : Iterator<T> {
         val columnIndexToNameMap = columnIndexNamePairs.toMap()
-        val columnIndices = columnIndexNamePairs.map{it.first}
+        val columnIndices = columnIndexNamePairs.map { it.first }
         val windowed = columnIndices.windowed(2)
         override fun hasNext(): Boolean = lineIterator.hasNext()
         override fun next(): T {
@@ -68,8 +68,9 @@ data class RowStyleTableFormatter(
             val map = cells.mapIndexed { index, cell -> Pair(columnIndexNamePairs[index].second, cell) }.toMap()
             return mapToElement(map)
         }
-        private fun parseCells(line:String):List<String> {
-            val exceptLast = windowed.map{(startIndex, endIndex) ->
+
+        private fun parseCells(line: String): List<String> {
+            val exceptLast = windowed.map { (startIndex, endIndex) ->
                 line.substring(startIndex, endIndex)
             }
             val last = line.substring(columnIndices.last())
@@ -85,10 +86,10 @@ data class RowStyleTableFormatter(
             return TableIteratorWithColumnIndices(lineIterator, mapToElement, columnIndices)
         }
 
-        fun parseColumnIndices(header:String):List<Pair<Int, String>> {
+        fun parseColumnIndices(header: String): List<Pair<Int, String>> {
             val word = Regex("""[^\s]+""")
             val matches = word.findAll(header)
-            return matches.map{matchResult ->
+            return matches.map { matchResult ->
                 val index = matchResult.range.first
                 val name = matchResult.value
                 Pair(index, name)
