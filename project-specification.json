@@ -42,6 +42,9 @@
     "jackson-time": {
       "group": "com.fasterxml.jackson.datatype",
       "artifact": "jackson-datatype-jsr310"
+    },
+    "di-test": {
+      "scope": "test"
     }
   },
   "global": [
@@ -87,7 +90,8 @@
     "duration-format": [],
     "table-format": [],
     "html": [],
-    "zip": []
+    "zip": [],
+    "file-selection": ["di-delegate", "di-test"]
   },
   "javaVersion": "25",
   "exports": [
@@ -105,7 +109,8 @@
     "duration-format",
     "table-format",
     "html",
-    "zip"
+    "zip",
+    "file-selection"
   ]
 }
 
