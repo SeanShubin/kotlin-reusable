@@ -8,7 +8,8 @@ class ZipContentsIterator(
     private val inputStream: InputStream,
     private val name: String,
     private val isZip: (String) -> Boolean,
-    private val accept: (List<String>, ZipEntry) -> Boolean
+    private val accept: (List<String>, ZipEntry) -> Boolean,
+    private val loadBytes: Boolean = true
 ) : Iterator<ZipContents> {
 
     private data class History(val name: String, val zipInputStream: ZipInputStream)
@@ -23,7 +24,7 @@ class ZipContentsIterator(
         if (localNextEntry == null) {
             throw RuntimeException("End of iterator")
         } else {
-            val bytes = loadBytes(localNextEntry)
+            val bytes = if (loadBytes) loadBytes(localNextEntry) else emptyList()
             val result = ZipContents(pathNames(), localNextEntry, bytes)
             moveCursorForward()
             return result
