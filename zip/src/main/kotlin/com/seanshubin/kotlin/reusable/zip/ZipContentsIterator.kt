@@ -15,7 +15,11 @@ class ZipContentsIterator(
     private data class History(val name: String, val zipInputStream: ZipInputStream)
 
     private var path: List<History> = listOf(History(name, ZipInputStream(inputStream)))
-    private var maybeNextEntry: ZipEntry? = latestZipInputStream().nextEntry
+    private var maybeNextEntry: ZipEntry? = null
+
+    init {
+        advance()
+    }
 
     override fun hasNext(): Boolean = maybeNextEntry != null
 
@@ -26,7 +30,7 @@ class ZipContentsIterator(
         } else {
             val bytes = if (loadBytes) loadBytes(localNextEntry) else emptyList()
             val result = ZipContents(pathNames(), localNextEntry, bytes)
-            moveCursorForward()
+            advance()
             return result
         }
     }
@@ -66,8 +70,11 @@ class ZipContentsIterator(
 
     private fun pathNames(): List<String> = path.map(::extractName).reversed()
 
-    private tailrec fun moveCursorForward() {
-        if (!hasNext()) throw RuntimeException("Can't move past end of iterator")
+    private tailrec fun advance() {
+        if (path.isEmpty()) {
+            maybeNextEntry = null
+            return
+        }
         val entry = latestZipInputStream().nextEntry
         if (entry == null) {
             path = path.drop(1)
@@ -75,22 +82,16 @@ class ZipContentsIterator(
                 maybeNextEntry = null
                 inputStream.close()
             } else {
-                moveCursorForward()
+                advance()
             }
+        } else if (!entry.isDirectory && isZip(entry.name)) {
+            val zipInputStream = ZipInputStream(latestZipInputStream())
+            path = listOf(History(entry.name, zipInputStream)) + path
+            advance()
+        } else if (accept(pathNames(), entry)) {
+            maybeNextEntry = entry
         } else {
-            if (entry.isDirectory) {
-                maybeNextEntry = entry
-            } else if (isZip(entry.name)) {
-                val zipInputStream = ZipInputStream(latestZipInputStream())
-                path = listOf(History(entry.name, zipInputStream)) + path
-                moveCursorForward()
-            } else {
-                if (accept(pathNames(), entry)) {
-                    maybeNextEntry = entry
-                } else {
-                    moveCursorForward()
-                }
-            }
+            advance()
         }
     }
 
