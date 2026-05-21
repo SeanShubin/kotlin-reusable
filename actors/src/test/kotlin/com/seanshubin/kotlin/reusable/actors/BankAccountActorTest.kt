@@ -1,6 +1,6 @@
 package com.seanshubin.kotlin.reusable.actors
 
-import CoroutineScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
