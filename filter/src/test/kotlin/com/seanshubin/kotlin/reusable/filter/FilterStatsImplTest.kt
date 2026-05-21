@@ -30,13 +30,13 @@ class FilterStatsImplTest {
             category = "invocation",
             type = "boundary",
             pattern = "java\\..*",
-            text = "java.lang.String"
+            text = BOUNDARY_CLASS
         )
         val event2 = MatchedFilterEvent(
             category = "invocation",
             type = "core",
             pattern = "com\\.example\\..*",
-            text = "com.example.MyClass"
+            text = CORE_CLASS
         )
 
         stats.consumeMatchedFilterEvent(event1)
@@ -52,11 +52,11 @@ class FilterStatsImplTest {
         val stats: FilterStats = FilterStatsImpl()
         val event1 = UnmatchedFilterEvent(
             category = "invocation",
-            text = "unknown.package.Class"
+            text = UNKNOWN_CLASS
         )
         val event2 = UnmatchedFilterEvent(
             category = "invocation",
-            text = "another.unknown.Class"
+            text = ANOTHER_UNKNOWN_CLASS
         )
 
         stats.consumeUnmatchedFilterEvent(event1)
@@ -108,5 +108,12 @@ class FilterStatsImplTest {
 
         assertEquals(firstRead, secondRead)
         assertTrue(firstRead !== secondRead) // Different list instances
+    }
+
+    companion object {
+        const val BOUNDARY_CLASS = "java.lang.String"
+        const val CORE_CLASS = "com.example.MyClass"
+        const val UNKNOWN_CLASS = "unknown.package.Class"
+        const val ANOTHER_UNKNOWN_CLASS = "another.unknown.Class"
     }
 }

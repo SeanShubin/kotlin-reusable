@@ -1,5 +1,6 @@
 package com.seanshubin.kotlin.reusable.actors
 
+import CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
@@ -17,7 +18,7 @@ data class Balance(val amount: Int) : BankResponse()
 data class OperationResult(val success: Boolean) : BankResponse()
 
 // Example actor
-class BankAccountActor(scope: kotlinx.coroutines.CoroutineScope) : Actor<BankMessage>(scope) {
+class BankAccountActor(scope: CoroutineScope) : Actor<BankMessage>(scope) {
     private var balance = 0
 
     override suspend fun onMessage(msg: BankMessage) {
@@ -41,7 +42,7 @@ class BankAccountActor(scope: kotlinx.coroutines.CoroutineScope) : Actor<BankMes
 }
 
 // Test client actor that collects responses
-class ClientActor(scope: kotlinx.coroutines.CoroutineScope) : Actor<BankResponse>(scope) {
+class ClientActor(scope: CoroutineScope) : Actor<BankResponse>(scope) {
     val responses = mutableListOf<BankResponse>()
 
     override suspend fun onMessage(msg: BankResponse) {
