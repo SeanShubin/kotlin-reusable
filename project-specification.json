@@ -111,6 +111,6 @@
     "html",
     "zip",
     "file-selection"
-  ]
+  ],
+  "generateCodeStructure": true
 }
-
