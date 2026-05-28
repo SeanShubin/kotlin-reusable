@@ -91,7 +91,10 @@
     "table-format": [],
     "html": [],
     "zip": [],
-    "file-selection": ["di-delegate", "di-test"]
+    "file-selection": [
+      "di-delegate",
+      "di-test"
+    ]
   },
   "javaVersion": "25",
   "exports": [
@@ -112,5 +115,11 @@
     "zip",
     "file-selection"
   ],
-  "generateCodeStructure": true
+  "generateCodeStructure": true,
+  "versionOverrides": [],
+  "entryPoints": {},
+  "mavenPlugin": [],
+  "gradlePlugin": [],
+  "publishToMavenCentral": false,
+  "sourceDependencies": []
 }
